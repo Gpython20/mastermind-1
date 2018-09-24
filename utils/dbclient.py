@@ -12,12 +12,23 @@ class DBClient():
         self.connection.close
         return
 
-    def insert_game(self, user):
-        cursor = self.connection.cursor ()
-        query = "INSERT INTO games(userid) VALUES('{0}') ".format(user)
+    def insert_game(self, user, code):
+        cursor = self.connection.cursor()
+        query = "INSERT INTO games(userid, code) VALUES('{0}','{1}') ".format(user, code)
         cursor.execute (query)
         self.connection.commit()
         new_game_id = cursor.lastrowid
-        print ("New Game:", new_game_id)
         cursor.close
         return new_game_id
+
+    def get_game_data(self, gameid):
+        response = {}
+        cursor = self.connection.cursor()
+        query = "select code, plays from games where id = {0}".format(gameid)
+        cursor.execute(query)
+        data = cursor.fetchall()
+        if not data:
+            return {}
+        response = {"code":data[0][0], "plays":data[0][1]}
+
+        return response

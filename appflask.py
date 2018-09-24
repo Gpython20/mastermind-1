@@ -12,7 +12,7 @@ from flask import (make_response,
                 flash,
                 session)
 
-from utils.dbclient import DBClient
+from utils.game import Game
 
 app = Flask(__name__)
 CORS(app)
@@ -27,8 +27,13 @@ def root():
 
 @app.route('/newgame/<string:userid>',methods = ['GET'])
 def newgame(userid):
-    db_client = DBClient()
-    db_client.connect()
-    gameid = db_client.insert_game(userid)
-    db_client.close()
-    return json.dumps({"gameid": gameid})
+    game = Game()
+    new_game_id = game.new_game(userid)
+    return json.dumps(new_game_id)
+
+@app.route('/guess/<string:gameid>/<string:pos_1>/<string:pos_2>/<string:pos_3>/<string:pos_4>',methods = ['GET'])
+def guess(gameid, pos_1, pos_2, pos_3, pos_4):
+    guess = {"pos_1":int(pos_1), "pos_2": int(pos_2), "pos_3":int(pos_3), "pos_4":int(pos_4)}
+    game = Game()
+    feedback = game.guess(gameid, guess)
+    return json.dumps(feedback)
