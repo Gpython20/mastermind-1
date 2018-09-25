@@ -37,3 +37,9 @@ def guess(gameid, pos_1, pos_2, pos_3, pos_4):
     game = Game()
     feedback = game.guess(gameid, guess)
     return json.dumps(feedback)
+
+@app.route('/history/<string:gameid>',methods = ['GET'])
+def history(gameid):
+    game = Game()
+    history = game.history(gameid)
+    return json.dumps(history)

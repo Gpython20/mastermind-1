@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import pymysql
+import json
 
 class DBClient():
 
@@ -24,11 +25,38 @@ class DBClient():
     def get_game_data(self, gameid):
         response = {}
         cursor = self.connection.cursor()
-        query = "select code, plays from games where id = {0}".format(gameid)
+        query = "SELECT code, plays, status FROM games WHERE id = {0}".format(gameid)
         cursor.execute(query)
         data = cursor.fetchall()
         if not data:
             return {}
-        response = {"code":data[0][0], "plays":data[0][1]}
+        response = {"code":data[0][0], "plays":data[0][1], "status":data[0][2]}
+
+        return response
+
+    def update_game_data(self, gameid, new_plays, status):
+        cursor = self.connection.cursor()
+        query = "UPDATE games SET plays = {0}, status={1} WHERE id = {2} ".format(new_plays, status, gameid)
+        cursor.execute (query)
+        self.connection.commit()
+        cursor.close
+        return 
+
+    def insert_play(self, gameid, play, guess, key_pegs):
+        cursor = self.connection.cursor()
+        query = "INSERT INTO plays(gameid, play,guess, key_pegs) VALUES({0},{1},'{2}','{3}') ".format(gameid, play, guess, key_pegs)
+        cursor.execute (query)
+        self.connection.commit()
+        cursor.close
+        return
+
+    def get_game_history(self, gameid):
+        response = []
+        cursor = self.connection.cursor()
+        query = "SELECT play, guess, key_pegs FROM plays WHERE gameid = {0}".format(gameid)
+        cursor.execute(query)
+        data = cursor.fetchall()
+        for row in data:
+            response.append( {"play":row[0], "guess":json.loads(row[1]), "key_pegs":json.loads(row[2])} )
 
         return response
