@@ -6,7 +6,7 @@ This is a very simple API for the game [Mastermind] (https://en.wikipedia.org/wi
 The whole game is based in 3 functions:
 
 1.- /newgame/(userid)
-This function creates a new game on the database with the initial code asociated with a userid 
+This function creates a new game on the database with the initial code asociated with a userid. Returns a JSON object with the gameid or in case or error the function returns a gameid = 0:
 
 2.- /guess/(pos_1)/(pos_2)/(pos_3)/(pos_4)
 With this function the user sends its guess for the code where pos_X is the code for the color on the X position. The color codes are:
@@ -24,7 +24,9 @@ The function returns a JSON object containing the key pegs as a list, the number
     1 = Game won
     2 = Game lost 
 
-Example: {'key_pegs':[1,0,0], 'plays': 3, 'status': 0}
+Example of a response: {'key_pegs':[1,0,0], 'plays': 3, 'status': 0}
+
+In case of error the function returns a JSON object with the error description. Example: {"Error": "Error getting game data"}
 
 Once the game has won or reach the number of max guesses the game can not be played anymore and the function will return the last feedback.
 
@@ -60,9 +62,18 @@ pip install requirments.txt
 ````
 
 Run
+
 ```
 python app.py
 `````
 
+## Database
+The database has been implemented in MySQL. A file containing the database structure is included as mastermind.sql
+
+## Configuration
+The configuration is read from the files development.cfg and production.cfg. If the environmental variable "MASTERMIND_PRODUCTION" exists it will read the production file otherwise it will use the development configuration.
+
 ## Limitations
 This is a simple implementation so its several limitations for example the key of the games ids on the database is an int so thats the number of games can be played. This can be improved.
+
+Another limitation is that no security has been implementated.
