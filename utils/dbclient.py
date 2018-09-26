@@ -13,12 +13,9 @@ class DBClient():
     def connect(self):
         try:
             if "MASTERMIND_PRODUCTION" in os.environ:
-                print("Production config")
                 self.config.read('config/production.cfg')
             else:
-                print("Development config")
                 self.config.read('config/development.cfg')
-            print(self.config.sections())
             self.connection=pymysql.connect(host=self.config.get('mysql','host'),
                                             user=self.config.get('mysql','user'), 
                                             passwd=self.config.get('mysql','passwd'),

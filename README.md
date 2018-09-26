@@ -58,7 +58,7 @@ source venv/bin/activate
 Install requirements
 
 ```
-pip install requirments.txt
+pip install -r requirements.txt
 ````
 
 Run
@@ -66,6 +66,7 @@ Run
 ```
 python app.py
 `````
+By defaut the server runs on port 8090, but can be specified as a parameter. Example: python app.py 80
 
 ## Database
 The database has been implemented in MySQL. A file containing the database structure is included as mastermind.sql
