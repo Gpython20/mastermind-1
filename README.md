@@ -11,18 +11,18 @@ This function creates a new game on the database with the initial code asociated
 2.- /guess/(pos_1)/(pos_2)/(pos_3)/(pos_4)
 With this function the user sends its guess for the code where pos_X is the code for the color on the X position. The color codes are:
 
-    * 1 = Red
-    * 2 = Yellow
-    * 3 = Blue
-    * 4 = Orange
-    * 5 = Green
-    * 6 = Violet
+    1 = Red
+    2 = Yellow
+    3 = Blue
+    4 = Orange
+    5 = Green
+    6 = Violet
 
 The function returns a JSON object containing the key pegs as a list, the number of plays this had and the status of the game. The game status codes are:
 
-    * 0 = Game open
-    * 1 = Game won
-    * 2 = Game lost 
+    0 = Game open
+    1 = Game won
+    2 = Game lost 
 
 Example: {'key_pegs':[1,0,0], 'plays': 3, 'status': 0}
 
@@ -34,7 +34,7 @@ This function returns all the history of the game as a JSON object. Each play wi
 [{"play":1, "guess":{"pos_1":2, "pos_1":3, "pos_1":4, "pos_1":5}, "key_pegs":[0]},
 {"play":2, "guess":{"pos_1":2, "pos_1":3, "pos_1":5, "pos_1":5}, "key_pegs":[0,0]}]
 
-#Run
+## Run
 Clone the repo:
 
 ```
@@ -64,5 +64,5 @@ Run
 python app.py
 `````
 
-#Limitations
+## Limitations
 This is a simple implementation so its several limitations for example the key of the games ids on the database is an int so thats the number of games can be played. This can be improved.
