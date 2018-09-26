@@ -1,7 +1,7 @@
 # Mastermind
 Master Mind game API
 
-This is a very simple API for the game [Mastermind] (https://en.wikipedia.org/wiki/Mastermind_(board_game)). It has been implemented with GET http methods so it can be easly tested on any web browser. The game functions with 
+This is a very simple API for the game Mastermind (https://en.wikipedia.org/wiki/Mastermind_(board_game)) on its basic version 4 spaces, 6 colors 8 chances. It has been implemented with GET http methods so it can be easly tested on any web browser.  
 
 The whole game is based in 3 functions:
 
@@ -76,5 +76,7 @@ The configuration is read from the files development.cfg and production.cfg. If 
 
 ## Limitations
 This is a simple implementation so its several limitations for example the key of the games ids on the database is an int so thats the number of games can be played. This can be improved.
+
+The API is designed for basic gameplay 4 spaces, 6 colors and 8 chances but can be easly modified for other play options.
 
 Another limitation is that no security has been implementated.
